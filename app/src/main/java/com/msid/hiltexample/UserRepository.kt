@@ -4,10 +4,20 @@ import android.util.Log
 import javax.inject.Inject
 
 const val TAG = "MUSID"
-class UserRepository @Inject constructor(val loggerService: LoggerService) {
 
-    fun saveUser(email: String, password: String){
-        //Log.d(TAG, "User saved in Repository")
-        loggerService.log("User saved in DB")
+interface  UserRepository{
+    fun saveUser(email: String, password: String)
+}
+class SQLRepository @Inject constructor(): UserRepository {
+
+    override fun saveUser(email: String, password: String){
+        Log.d(TAG, "User saved in DB")
     }
+}
+
+class Firebaserepository: UserRepository{
+    override fun saveUser(email: String, password: String) {
+        Log.d(TAG, "User saved in Firebase")
+    }
+
 }
