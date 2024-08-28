@@ -1,5 +1,6 @@
 package com.msid.hiltexample
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,10 +10,8 @@ import dagger.hilt.components.SingletonComponent
 
 @InstallIn(ActivityComponent::class)
 @Module
-class UserModule {
+abstract class UserModule {
 
-    @Provides
-    fun provideUserRepository(): UserRepository{
-        return Firebaserepository()
-    }
+    @Binds
+    abstract fun provideUserRepository(sqlRepository: SQLRepository): UserRepository
 }
