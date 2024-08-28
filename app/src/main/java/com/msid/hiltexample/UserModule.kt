@@ -1,17 +1,26 @@
 package com.msid.hiltexample
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 
 @InstallIn(ActivityComponent::class)
 @Module
-abstract class UserModule {
+class UserModule {
 
-    @Binds
-    abstract fun provideUserRepository(sqlRepository: SQLRepository): UserRepository
+    @Provides
+    @Named("sql")
+    fun provideSQLRepository(sqlRepository: SQLRepository): UserRepository{
+        return sqlRepository
+    }
+
+    @Provides
+    @FirebaseQualifier
+    fun provideFirebaseRepository(): UserRepository{
+        return Firebaserepository()
+    }
 }
